@@ -334,6 +334,8 @@ class RawMetadata(object):
             duration = get_from_dict_if_exists('dDuration', loop) or 0
             interval = determine_sampling_interval(duration, loop)
 
+            frames = get_from_dict_if_exists('uiCount', loop) or 0
+
             # if duration is not saved, infer it
             duration = self.get_duration_from_interval_and_loops(duration, interval, loop)
 
@@ -344,7 +346,8 @@ class RawMetadata(object):
                 'start': time_offset,
                 'duration': duration,
                 'stimulation': is_stimulation,
-                'sampling_interval': interval
+                'sampling_interval': interval,
+                'frames': frames
             }
 
             parsed_loops.append(parsed_loop)
