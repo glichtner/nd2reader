@@ -87,7 +87,11 @@ def determine_sampling_interval(duration, loop):
     interval = get_from_dict_if_exists('dPeriod', loop)
     avg_interval = get_from_dict_if_exists('dAvgPeriodDiff', loop)
 
-    if interval is None or interval <= 0:
+    if interval == 0:
+        interval = 'No Delay'
+    elif interval == -31415:
+        interval = 'No Acquisition'
+    elif interval is None or interval < 0:
         interval = avg_interval
     else:
         avg_interval_set = avg_interval is not None and avg_interval > 0
@@ -99,7 +103,7 @@ def determine_sampling_interval(duration, loop):
             warnings.warn(message % (avg_interval, interval), RuntimeWarning)
             interval = avg_interval
 
-    if interval is None or interval <= 0:
+    if interval is None or (type(interval) is not str and interval <= 0):
         # In some cases, both keys are not saved. Then try to calculate it.
         interval = guess_sampling_from_loops(duration, loop)
 
