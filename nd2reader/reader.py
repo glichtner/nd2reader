@@ -122,6 +122,8 @@ class ND2Reader(FramesSequenceND):
         total_duration = 0.0
 
         for loop in self.metadata['experiment']['loops']:
+            if loop["sampling_interval"] == "No Acquisition":
+                continue
             total_duration += loop['duration']
 
         if total_duration == 0:
