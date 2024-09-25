@@ -195,7 +195,7 @@ class ND2Reader(FramesSequenceND):
         if self._timesteps is not None and len(self._timesteps) > 0:
             return self._timesteps
 
-        self._timesteps = np.array(list(self._parser._raw_metadata.acquisition_times), dtype=np.float) * 1000.0
+        self._timesteps = np.array(list(self._parser._raw_metadata.acquisition_times), dtype=float) * 1000.0
 
         return self._timesteps
 
